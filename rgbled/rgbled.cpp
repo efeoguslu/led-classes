@@ -17,6 +17,20 @@ void RgbLed::setColor(int red, int green, int blue) {
     // digitalWrite(bluePin, blue ? HIGH : LOW);
 }
 
+void RgbLed::setColor(Color color) {
+    switch(color) {
+        case Color::Red:
+            RgbLed::setColor(1, 0, 0);
+            break;
+        case Color::Green:
+            RgbLed::setColor(0, 1, 0);
+            break;
+        case Color::Blue:
+            RgbLed::setColor(0, 0, 1);
+            break;
+    }
+}
+
 void RgbLed::resetColor() {
     // Turn off all colors
     RgbLed::setColor(0, 0, 0);
@@ -64,7 +78,8 @@ void RgbLed::update() {
             break;
         
         case Event::ConfigChange:
-            if (elapsed % configChangeLedDelayMs*2 < configChangeLedDelayMs) {
+            // look into this tomorrow:
+            if ((elapsed % configChangeLedDelayMs*2) < configChangeLedDelayMs) {
                 RgbLed::setColor(0, 0, 1); // Blue
             } else {
                 RgbLed::resetColor();

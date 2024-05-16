@@ -17,7 +17,8 @@ void Led::turnOff(){
     std::cout << "LED is OFF.\n";
 }
 
-void Led::toggle() {
+void Led::toggle(){
+    // digitalWrite(pinNumber, !digitalRead(pinNumber));
     std::cout << "LED is toggling.\n";
 }
 
@@ -34,14 +35,9 @@ void Led::update(bool isConnected) {
 void Led::checkAndToggle() {
     auto now = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastUpdateTime).count();
-    if (elapsed >= gpsLedDelayDurationMs && isBlinking) {
+    if ((elapsed >= gpsLedDelayDurationMs) && isBlinking) {
         toggle();
         lastUpdateTime = now;
     }
 }
 
-// ----------------------------------------------------------------------------------------------------
-
-RGBLed::RGBLed(int pinRed, int pinGreen, int pinBlue) : pinRedNumber(pinRed), pinGreenNumber(pinGreen), pinBlueNumber(pinBlue){
-    std::cout << "Starting RGB LED object.\n";
-}
